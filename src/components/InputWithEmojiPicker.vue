@@ -3,7 +3,7 @@
   <!--  <TextAria :text="text" @input:text="text = $event"  @emoji-btn-click="emojiBtnClick"  />-->
   <img class="pre-right-icon" src="@/assets/icons/smile.svg" @click="emojiBtnClick"
        data-title="Tab для быстрого доступа"/>
-  <textarea @keydown.enter.exact.prevent @keyup.enter.exact="enter" @keydown.tab.exact.prevent @keyup.tab.exact="tab"
+  <textarea @click="click" @keydown.enter.exact.prevent @keyup.enter.exact="enter" @keydown.tab.exact.prevent @keyup.tab.exact="tab"
             placeholder="Ваше сообщение" v-model="text" ref="textarea" @input="updateText($event.target.text)"
             rows="1"></textarea>
 </template>
@@ -26,6 +26,10 @@ export default {
   },
   methods: {
 
+    click(){
+      this.showEmojiPicker = false
+    },
+
     tab() {
       this.showEmojiPicker = !this.showEmojiPicker
     },
@@ -36,6 +40,7 @@ export default {
         this.$refs.textarea.text = ""
         this.updateText()
       }
+      this.showEmojiPicker = false
     },
 
     emojiBtnClick() {
